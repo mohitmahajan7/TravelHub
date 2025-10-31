@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Reimbursement Management System - Complete Documentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: var(--dark-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+        }
+        h2 i {
+            margin-right: 10px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .diagram-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+            position: relative;
+        }
+        .diagram-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .requirement {
+            background: #e8f4fd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .requirement:hover {
+            background: #d4e9fa;
+            transform: translateX(5px);
+        }
+        .stakeholder {
+            background: #f0f8ff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .stakeholder i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        .nav-menu {
+            position: sticky;
+            top: 0;
+            background: rgba(52, 73, 94, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.2s ease;
+        }
+        .search-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .search-box {
+            padding: 12px 20px;
+            width: 60%;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            outline: none;
+        }
+        .copy-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        .copy-button:hover {
+            background: var(--secondary-color);
+        }
+        .diagram-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        .diagram-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .diagram-btn:hover {
+            background: var(--secondary-color);
+        }
+        .toggle-content {
+            display: none;
+        }
+        .toggle-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .toggle-button i {
+            margin-right: 5px;
+        }
+        .toggle-button:hover {
+            background: var(--secondary-color);
+        }
+        @media (max-width: 768px) {
+            .nav-menu a {
+                display: block;
+                margin: 5px 0;
+            }
+            .search-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <div class="container">
+        <h1>🌟 Travel Reimbursement Management System</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #7f8c8d; margin-bottom: 30px;">
+            Complete Documentation & System Design
+        </p>
+
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search documentation..." id="searchInput">
+        </div>
+
+        <div class="nav-menu">
+            <a href="#overview"><i class="fas fa-home"></i> Overview</a>
+            <a href="#structural"><i class="fas fa-sitemap"></i> Structural</a>
+            <a href="#behavioral"><i class="fas fa-exchange-alt"></i> Behavioral</a>
+            <a href="#non-uml"><i class="fas fa-chart-line"></i> Non-UML</a>
+            <a href="#specialized"><i class="fas fa-star"></i> Specialized</a>
+            <a href="#requirements"><i class="fas fa-tasks"></i> Requirements</a>
+            <a href="#architecture"><i class="fas fa-layer-group"></i> Architecture</a>
+        </div>
+
+        <div id="overview" class="section">
+            <h2><i class="fas fa-info-circle"></i> System Overview</h2>
+            <div class="highlight">
+                <h3>Purpose</h3>
+                <p>The Travel Reimbursement Management System is a comprehensive enterprise solution designed to streamline and automate the entire lifecycle of employee travel requests, from initial submission through final reimbursement. The system ensures compliance with organizational policies, provides transparent approval workflows, and maintains detailed audit trails for financial accountability.</p>
+            </div>
+
+            <h3><i class="fas fa-bullseye"></i> Key Objectives</h3>
+            <ul>
+                <li><strong>Automation:</strong> Eliminate manual paper-based processes and reduce processing time</li>
+                <li><strong>Compliance:</strong> Ensure all requests adhere to company travel policies and spending limits</li>
+                <li><strong>Transparency:</strong> Provide real-time visibility into request status and approval workflows</li>
+                <li><strong>Accountability:</strong> Maintain comprehensive audit trails for all transactions</li>
+                <li><strong>Efficiency:</strong> Streamline approval processes and reduce administrative overhead</li>
+            </ul>
+
+            <h3><i class="fas fa-users"></i> Stakeholders</h3>
+            <div class="stakeholder"><i class="fas fa-user"></i> <strong>Employee (Requester):</strong> Initiates travel requests, tracks status, and receives reimbursements</div>
+            <div class="stakeholder"><i class="fas fa-user-tie"></i> <strong>Manager (Primary Approver):</strong> Reviews and approves departmental travel requests</div>
+            <div class="stakeholder"><i class="fas fa-money-check-alt"></i> <strong>Finance Department:</strong> Processes final approvals and manages payments</div>
+            <div class="stakeholder"><i class="fas fa-user-cog"></i> <strong>Super User (Admin):</strong> Monitors system-wide activities, generates reports, and maintains policies</div>
+            <div class="stakeholder"><i class="fas fa-building"></i> <strong>HR Department:</strong> Manages policy compliance and employee eligibility</div>
+        </div>
+
+        <div id="structural" class="section">
+            <h2><i class="fas fa-sitemap"></i> Structural Diagrams</h2>
+
+            <h3>1. Class Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Class Structure</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                classDiagram
+                    class User {
+                        +String userId
+                        +String username
+                        +String email
+                        +String role
+                        +Date createdAt
+                        +login()
+                        +logout()
+                        +updateProfile()
+                    }
+                    
+                    class Employee {
+                        +String employeeId
+                        +String designation
+                        +String department
+                        +Double salaryGrade
+                        +createTravelRequest()
+                        +viewRequestStatus()
+                        +submitExpenses()
+                    }
+                    
+                    class Manager {
+                        +String managerId
+                        +String department
+                        +List subordinates
+                        +reviewRequest()
+                        +approveRequest()
+                        +rejectRequest()
+                    }
+                    
+                    class TravelRequest {
+                        +String requestId
+                        +String employeeId
+                        +String purpose
+                        +Date fromDate
+                        +Date toDate
+                        +String travelMode
+                        +Double estimatedCost
+                        +String status
+                        +Date createdAt
+                        +validatePolicy()
+                        +calculateTotal()
+                    }
+                    
+                    class Approval {
+                        +String approvalId
+                        +String requestId
+                        +String approverId
+                        +String approverType
+                        +String status
+                        +String remarks
+                        +Date approvedAt
+                        +approve()
+                        +reject()
+                    }
+                    
+                    class Payment {
+                        +String paymentId
+                        +String requestId
+                        +Double amount
+                        +String paymentMode
+                        +String status
+                        +Date processedAt
+                        +processPayment()
+                        +updateStatus()
+                    }
+                    
+                    class Policy {
+                        +String policyId
+                        +String designation
+                        +String travelClass
+                        +Double maxLimit
+                        +String rules
+                        +validateRequest()
+                    }
+                    
+                    User <|-- Employee
+                    User <|-- Manager
+                    Employee "1" -- "*" TravelRequest : creates
+                    TravelRequest "1" -- "*" Approval : requires
+                    TravelRequest "1" -- "1" Payment : results in
+                    Policy "1" -- "*" TravelRequest : validates
+                    Manager "1" -- "*" Approval : provides
+                </div>
+            </div>
+
+            <h3>2. Component Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Components</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "Presentation Layer"
+                        UI[Web Interface]
+                        Mobile[Mobile App]
+                        API[REST API Gateway]
+                    end
+                    
+                    subgraph "Business Logic Layer"
+                        Auth[Authentication Service]
+                        TravelSvc[Travel Request Service]
+                        ApprovalSvc[Approval Workflow Service]
+                        PaymentSvc[Payment Processing Service]
+                        NotificationSvc[Notification Service]
+                        PolicySvc[Policy Management Service]
+                        ReportSvc[Reporting Service]
+                    end
+                    
+                    subgraph "Data Access Layer"
+                        UserRepo[User Repository]
+                        RequestRepo[Request Repository]
+                        ApprovalRepo[Approval Repository]
+                        PaymentRepo[Payment Repository]
+                        PolicyRepo[Policy Repository]
+                    end
+                    
+                    subgraph "External Systems"
+                        EmailSvc[Email Service]
+                        PayrollSys[Payroll System]
+                        ActiveDir[Active Directory]
+                    end
+                    
+                    subgraph "Database Layer"
+                        DB[(Main Database)]
+                        AuditDB[(Audit Database)]
+                    end
+                    
+                    UI --> API
+                    Mobile --> API
+                    API --> Auth
+                    API --> TravelSvc
+                    API --> ApprovalSvc
+                    API --> PaymentSvc
+                    API --> ReportSvc
+                    
+                    Auth --> ActiveDir
+                    TravelSvc --> PolicySvc
+                    ApprovalSvc --> NotificationSvc
+                    PaymentSvc --> PayrollSys
+                    NotificationSvc --> EmailSvc
+                    
+                    TravelSvc --> RequestRepo
+                    ApprovalSvc --> ApprovalRepo
+                    PaymentSvc --> PaymentRepo
+                    Auth --> UserRepo
+                    PolicySvc --> PolicyRepo
+                    
+                    UserRepo --> DB
+                    RequestRepo --> DB
+                    ApprovalRepo --> DB
+                    PaymentRepo --> DB
+                    PolicyRepo --> DB
+                    ReportSvc --> AuditDB
+                </div>
+            </div>
+
+            <h3>3. Deployment Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Deployment</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "Client Tier"
+                        Browser[Web Browser]
+                        MobileApp[Mobile Application]
+                    end
+                    
+                    subgraph "Load Balancer"
+                        LB[Load Balancer]
+                    end
+                    
+                    subgraph "Application Tier"
+                        WebServer1[Web Server 1<br/>Tomcat/IIS]
+                        WebServer2[Web Server 2<br/>Tomcat/IIS]
+                        AppServer1[App Server 1<br/>Spring Boot/Node.js]
+                        AppServer2[App Server 2<br/>Spring Boot/Node.js]
+                    end
+                    
+                    subgraph "Database Tier"
+                        PrimaryDB[(Primary Database<br/>MySQL/PostgreSQL)]
+                        ReplicaDB[(Replica Database<br/>Read Only)]
+                        AuditDB[(Audit Database<br/>MongoDB)]
+                    end
+                    
+                    subgraph "External Services"
+                        EmailGateway[Email Gateway<br/>SMTP Server]
+                        PayrollAPI[Payroll System<br/>REST API]
+                        LDAP[Active Directory<br/>LDAP Server]
+                    end
+                    
+                    Browser --> LB
+                    MobileApp --> LB
+                    LB --> WebServer1
+                    LB --> WebServer2
+                    WebServer1 --> AppServer1
+                    WebServer2 --> AppServer2
+                    
+                    AppServer1 --> PrimaryDB
+                    AppServer2 --> ReplicaDB
+                    AppServer1 --> AuditDB
+                    AppServer2 --> AuditDB
+                    
+                    AppServer1 --> EmailGateway
+                    AppServer2 --> PayrollAPI
+                    AppServer1 --> LDAP
+                    AppServer2 --> LDAP
+                </div>
+            </div>
+
+            <h3>4. Package Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Packages</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "com.company.travel"
+                        subgraph "presentation"
+                            Controllers[Controllers Package]
+                            DTOs[DTOs Package]
+                            Filters[Security Filters]
+                        end
+                        
+                        subgraph "business"
+                            Services[Service Layer]
+                            Validators[Business Validators]
+                            WorkflowEngine[Workflow Engine]
+                        end
+                        
+                        subgraph "domain"
+                            Entities[Domain Entities]
+                            ValueObjects[Value Objects]
+                            Repositories[Repository Interfaces]
+                        end
+                        
+                        subgraph "infrastructure"
+                            DataAccess[Data Access Layer]
+                            ExternalAPIs[External API Clients]
+                            Messaging[Message Queue]
+                        end
+                        
+                        subgraph "common"
+                            Utils[Utility Classes]
+                            Exceptions[Custom Exceptions]
+                            Constants[Application Constants]
+                        end
+                    end
+                    
+                    Controllers --> Services
+                    Services --> Entities
+                    Services --> Validators
+                    Services --> WorkflowEngine
+                    DataAccess --> Entities
+                    Services --> Repositories
+                    Repositories --> DataAccess
+                    ExternalAPIs --> Services
+                </div>
+            </div>
+        </div>
+
+        <div id="behavioral" class="section">
+            <h2><i class="fas fa-exchange-alt"></i> Behavioral Diagrams</h2>
+
+            <h3>1. Use Case Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Use Cases</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    Employee[Employee]
+                    Manager[Manager]
+                    Finance[Finance Officer]
+                    Admin[System Admin]
+                    
+                    subgraph "Travel Reimbursement System"
+                        UC1[Create Travel Request]
+                        UC2[Submit Expense Reports]
+                        UC3[Track Request Status]
+                        UC4[Review Requests]
+                        UC5[Approve/Reject Requests]
+                        UC6[Process Payments]
+                        UC7[Generate Reports]
+                        UC8[Manage Policies]
+                        UC9[User Management]
+                        UC10[Audit System]
+                        UC11[Send Notifications]
+                        UC12[Policy Validation]
+                    end
+                    
+                    Employee --> UC1
+                    Employee --> UC2
+                    Employee --> UC3
+                    Manager --> UC4
+                    Manager --> UC5
+                    Finance --> UC6
+                    Finance --> UC7
+                    Admin --> UC8
+                    Admin --> UC9
+                    Admin --> UC10
+                    
+                    UC1 -.-> UC12
+                    UC5 -.-> UC11
+                    UC6 -.-> UC11
+                </div>
+            </div>
+
+            <h3>2. Sequence Diagram - Travel Request Creation</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Request Creation Sequence</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                sequenceDiagram
+                    participant E as Employee
+                    participant UI as Web Interface
+                    participant TS as Travel Service
+                    participant PS as Policy Service
+                    participant DB as Database
+                    participant NS as Notification Service
+                    participant M as Manager
+                    
+                    E->>UI: Login to System
+                    UI->>TS: Authenticate User
+                    TS->>DB: Validate Credentials
+                    DB-->>TS: User Details
+                    TS-->>UI: Authentication Success
+                    
+                    E->>UI: Create New Travel Request
+                    UI->>TS: Submit Request Data
+                    TS->>PS: Validate Against Policy
+                    PS->>DB: Get Policy Rules
+                    DB-->>PS: Policy Details
+                    PS-->>TS: Validation Result
+                    
+                    alt Policy Validation Success
+                        TS->>DB: Save Request
+                        DB-->>TS: Request ID Generated
+                        TS->>NS: Send Approval Notification
+                        NS->>M: Email Notification
+                        TS-->>UI: Request Created Successfully
+                        UI-->>E: Confirmation Message
+                    else Policy Validation Failed
+                        TS-->>UI: Validation Error
+                        UI-->>E: Error Message
+                    end
+                </div>
+            </div>
+
+            <h3>3. Activity Diagram - Approval Workflow</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Approval Workflow</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TD
+                    Start([Start]) --> CheckRequest{Request<br/>Received?}
+                    CheckRequest -->|Yes| ValidatePolicy[Validate Against<br/>Company Policy]
+                    CheckRequest -->|No| WaitForRequest[Wait for Request]
+                    WaitForRequest --> CheckRequest
+                    
+                    ValidatePolicy --> PolicyCheck{Policy<br/>Compliant?}
+                    PolicyCheck -->|No| RejectRequest[Reject Request<br/>with Reason]
+                    PolicyCheck -->|Yes| ManagerReview[Send to Manager<br/>for Review]
+                    
+                    ManagerReview --> ManagerDecision{Manager<br/>Decision?}
+                    ManagerDecision -->|Approve| FinanceReview[Send to Finance<br/>for Final Approval]
+                    ManagerDecision -->|Reject| RejectRequest
+                    ManagerDecision -->|Request Changes| SendBackToEmployee[Send Back to<br/>Employee for Changes]
+                    
+                    FinanceReview --> FinanceDecision{Finance<br/>Decision?}
+                    FinanceDecision -->|Approve| ProcessPayment[Process Payment]
+                    FinanceDecision -->|Reject| RejectRequest
+                    
+                    ProcessPayment --> PaymentComplete[Payment Completed]
+                    RejectRequest --> NotifyEmployee[Notify Employee]
+                    SendBackToEmployee --> NotifyEmployee
+                    PaymentComplete --> NotifyEmployee
+                    NotifyEmployee --> End([End])
+                </div>
+            </div>
+
+            <h3>4. State Machine Diagram - Request Status</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Request Status States</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                stateDiagram-v2
+                    [*] --> Draft: Create Request
+                    Draft --> Submitted: Submit for Approval
+                    Draft --> Cancelled: Cancel Request
+                    
+                    Submitted --> UnderManagerReview: Auto Assignment
+                    UnderManagerReview --> ManagerApproved: Approve
+                    UnderManagerReview --> ManagerRejected: Reject
+                    UnderManagerReview --> UnderModification: Request Changes
+                    
+                    UnderModification --> Submitted: Resubmit
+                    UnderModification --> Cancelled: Cancel
+                    
+                    ManagerApproved --> UnderFinanceReview: Auto Forward
+                    UnderFinanceReview --> FinanceApproved: Final Approve
+                    UnderFinanceReview --> FinanceRejected: Final Reject
+                    
+                    FinanceApproved --> PaymentPending: Initiate Payment
+                    PaymentPending --> PaymentProcessed: Complete Payment
+                    PaymentPending --> PaymentFailed: Payment Error
+                    
+                    PaymentFailed --> PaymentPending: Retry Payment
+                    
+                    ManagerRejected --> [*]
+                    FinanceRejected --> [*]
+                    PaymentProcessed --> [*]
+                    Cancelled --> [*]
+                </div>
+            </div>
+        </div>
+
+        <div id="non-uml" class="section">
+            <h2><i class="fas fa-chart-line"></i> Non-UML Diagrams</h2>
+
+            <h3>1. Data Flow Diagram (Level 0)</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Data Flow Diagram</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph LR
+                    Employee[Employee] --> System[Travel Reimbursement<br/>Management System]
+                    Manager[Manager] --> System
+                    Finance[Finance Dept] --> System
+                    Admin[System Admin] --> System
+                    
+                    System --> Employee
+                    System --> Manager
+                    System --> Finance
+                    System --> Admin
+                    
+                    System --> PayrollSys[Payroll System]
+                    System --> EmailSvc[Email Service]
+                    System --> AuditSys[Audit System]
+                </div>
+            </div>
+
+            <h3>2. Entity-Relationship Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Entity-Relationship Diagram</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                erDiagram
+                    USER {
+                        string user_id PK
+                        string username
+                        string email
+                        string role
+                        datetime created_at
+                    }
+                    
+                    EMPLOYEE {
+                        string employee_id PK
+                        string user_id FK
+                        string designation
+                        string department
+                        decimal salary_grade
+                        string manager_id FK
+                    }
+                    
+                    TRAVEL_REQUEST {
+                        string request_id PK
+                        string employee_id FK
+                        string purpose
+                        date from_date
+                        date to_date
+                        string travel_mode
+                        decimal estimated_cost
+                        string status
+                        datetime created_at
+                    }
+                    
+                    EXPENSE_DETAIL {
+                        string expense_id PK
+                        string request_id FK
+                        string expense_type
+                        decimal amount
+                        string description
+                        string receipt_url
+                    }
+                    
+                    APPROVAL {
+                        string approval_id PK
+                        string request_id FK
+                        string approver_id FK
+                        string approver_type
+                        string status
+                        string remarks
+                        datetime approved_at
+                    }
+                    
+                    PAYMENT {
+                        string payment_id PK
+                        string request_id FK
+                        decimal amount
+                        string payment_mode
+                        string status
+                        datetime processed_at
+                    }
+                    
+                    POLICY {
+                        string policy_id PK
+                        string designation
+                        string travel_class
+                        decimal max_limit
+                        text rules
+                    }
+                    
+                    USER ||--|| EMPLOYEE : has
+                    EMPLOYEE ||--o{ TRAVEL_REQUEST : creates
+                    TRAVEL_REQUEST ||--o{ EXPENSE_DETAIL : contains
+                    TRAVEL_REQUEST ||--o{ APPROVAL : requires
+                    TRAVEL_REQUEST ||--o| PAYMENT : results_in
+                    EMPLOYEE ||--o{ APPROVAL : provides
+                    POLICY ||--o{ TRAVEL_REQUEST : validates
+                </div>
+            </div>
+
+            <h3>3. System Context Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Context</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "External Actors"
+                        E[Employees]
+                        M[Managers]
+                        F[Finance Team]
+                        A[Administrators]
+                    end
+                    
+                    subgraph "Travel Reimbursement System"
+                        Core[Core System]
+                    end
+                    
+                    subgraph "External Systems"
+                        Email[Email Service]
+                        Payroll[Payroll System]
+                        LDAP[Active Directory]
+                        Banking[Banking System]
+                    end
+                    
+                    E --> Core
+                    M --> Core
+                    F --> Core
+                    A --> Core
+                    
+                    Core --> Email
+                    Core --> Payroll
+                    Core --> LDAP
+                    Core --> Banking
+                    
+                    Email --> E
+                    Email --> M
+                    Email --> F
+                    Payroll --> F
+                </div>
+            </div>
+        </div>
+
+        <div id="specialized" class="section">
+            <h2><i class="fas fa-star"></i> Specialized Diagrams</h2>
+
+            <h3>1. System Architecture Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>System Architecture</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "Client Layer"
+                        Web[Web Browser]
+                        Mobile[Mobile App]
+                        API_Client[API Client]
+                    end
+                    
+                    subgraph "API Gateway"
+                        Gateway[API Gateway<br/>Rate Limiting<br/>Authentication<br/>Load Balancing]
+                    end
+                    
+                    subgraph "Microservices"
+                        Auth[Authentication<br/>Service]
+                        Travel[Travel Request<br/>Service]
+                        Workflow[Approval Workflow<br/>Service]
+                        Payment[Payment<br/>Service]
+                        Notification[Notification<br/>Service]
+                        Reporting[Reporting<br/>Service]
+                    end
+                    
+                    subgraph "Message Queue"
+                        Queue[Message Broker<br/>RabbitMQ/Kafka]
+                    end
+                    
+                    subgraph "Data Layer"
+                        Cache[Redis Cache]
+                        MainDB[(PostgreSQL<br/>Main Database)]
+                        ReportDB[(MongoDB<br/>Analytics DB)]
+                        FileStore[File Storage<br/>AWS S3/Azure Blob]
+                    end
+                    
+                    Web --> Gateway
+                    Mobile --> Gateway
+                    API_Client --> Gateway
+                    
+                    Gateway --> Auth
+                    Gateway --> Travel
+                    Gateway --> Workflow
+                    Gateway --> Payment
+                    Gateway --> Reporting
+                    
+                    Travel --> Queue
+                    Workflow --> Queue
+                    Payment --> Queue
+                    Queue --> Notification
+                    
+                    Auth --> Cache
+                    Travel --> MainDB
+                    Workflow --> MainDB
+                    Payment --> MainDB
+                    Reporting --> ReportDB
+                    Travel --> FileStore
+                </div>
+            </div>
+
+            <h3>2. User Interface Wireframe</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>UI Wireframe</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TB
+                    subgraph "Travel Request Dashboard"
+                        Header[Header: Logo | Navigation | User Profile]
+                        Sidebar[Sidebar Menu<br/>• My Requests<br/>• Create Request<br/>• Approvals<br/>• Reports<br/>• Settings]
+                        MainContent[Main Content Area]
+                        Footer[Footer: Copyright | Help | Contact]
+                    end
+                    
+                    subgraph "Request Form Layout"
+                        FormHeader[Form Title: Create Travel Request]
+                        PersonalInfo[Personal Information Section<br/>• Employee ID<br/>• Name<br/>• Department<br/>• Designation]
+                        TravelDetails[Travel Details Section<br/>• Purpose<br/>• From/To Dates<br/>• Destination<br/>• Mode of Travel]
+                        ExpenseEstimate[Expense Estimation<br/>• Travel Cost<br/>• Accommodation<br/>• Daily Allowance<br/>• Miscellaneous]
+                        Documents[Document Upload<br/>• Supporting Documents<br/>• Receipts<br/>• Approvals]
+                        ActionButtons[Action Buttons<br/>Save Draft | Submit | Cancel]
+                    end
+                    
+                    Header --> MainContent
+                    Sidebar --> MainContent
+                    MainContent --> FormHeader
+                    FormHeader --> PersonalInfo
+                    PersonalInfo --> TravelDetails
+                    TravelDetails --> ExpenseEstimate
+                    ExpenseEstimate --> Documents
+                    Documents --> ActionButtons
+                </div>
+            </div>
+
+            <h3>3. Process Flow Diagram</h3>
+            <div class="diagram-container">
+                <div class="diagram-title">
+                    <span>Process Flow</span>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" title="Zoom In" onclick="zoomDiagram(this, 1.1)"><i class="fas fa-search-plus"></i></button>
+                        <button class="diagram-btn" title="Zoom Out" onclick="zoomDiagram(this, 0.9)"><i class="fas fa-search-minus"></i></button>
+                        <button class="diagram-btn" title="Copy Code" onclick="copyDiagramCode(this)"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="mermaid">
+                graph TD
+                    Start([Employee Needs Travel]) --> Login[Login to System]
+                    Login --> CreateRequest[Create Travel Request]
+                    CreateRequest --> FillDetails[Fill Request Details<br/>• Purpose<br/>• Dates<br/>• Mode of Travel<br/>• Estimated Costs]
+                    FillDetails --> ValidatePolicy{Policy<br/>Validation}
+                    
+                    ValidatePolicy -->|Pass| SubmitRequest[Submit Request]
+                    ValidatePolicy -->|Fail| ShowErrors[Show Policy Errors]
+                    ShowErrors --> FillDetails
+                    
+                    SubmitRequest --> NotifyManager[Notify Manager]
+                    NotifyManager --> ManagerReview{Manager Review}
+                    
+                    ManagerReview -->|Approve| NotifyFinance[Notify Finance]
+                    ManagerReview -->|Reject| NotifyEmployee[Notify Employee<br/>Request Rejected]
+                    ManagerReview -->|Request Changes| NotifyEmployeeChanges[Request Modifications]
+                    
+                    NotifyEmployeeChanges --> FillDetails
+                    
+                    NotifyFinance --> FinanceReview{Finance Review}
+                    FinanceReview -->|Approve| ProcessPayment[Process Payment]
+                    FinanceReview -->|Reject| NotifyEmployee
+                    
+                    ProcessPayment --> PaymentSuccess{Payment<br/>Successful?}
+                    PaymentSuccess -->|Yes| NotifyEmployeeSuccess[Notify Employee<br/>Payment Complete]
+                    PaymentSuccess -->|No| RetryPayment[Retry Payment]
+                    RetryPayment --> ProcessPayment
+                    
+                    NotifyEmployee --> End([End])
+                    NotifyEmployeeSuccess --> End
+                </div>
+            </div>
+        </div>
+
+        <div id="requirements" class="section">
+            <h2><i class="fas fa-tasks"></i> Detailed Functional Requirements</h2>
+
+            <div class="requirement">
+                <h4>FR-01: Enhanced User Authentication and Authorization</h4>
+                <ul>
+                    <li><strong>Multi-Factor Authentication:</strong> Support for SMS, Email, and Authenticator App-based 2FA</li>
+                    <li><strong>Single Sign-On (SSO):</strong> Integration with Active Directory/LDAP</li>
+                    <li><strong>Role-Based Access Control:</strong> Granular permissions for different user roles</li>
+                    <li><strong>Session Management:</strong> Configurable session timeout and concurrent session limits</li>
+                    <li><strong>Password Policy:</strong> Enforced complexity requirements and periodic password changes</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-02: Advanced Travel Request Management</h4>
+                <ul>
+                    <li><strong>Multi-Currency Support:</strong> Handle international travel with currency conversion</li>
+                    <li><strong>Recurring Travel Requests:</strong> Templates for frequently made trips</li>
+                    <li><strong>Advance Request:</strong> Pre-approval for travel with estimated expenses</li>
+                    <li><strong>Document Attachment:</strong> Support for receipts, invoices, and supporting documents</li>
+                    <li><strong>Expense Categories:</strong> Detailed breakdown of travel, accommodation, meals, and miscellaneous expenses</li>
+                    <li><strong>GPS Integration:</strong> Auto-populate travel distances for car/taxi expenses</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-03: Intelligent Policy Engine</h4>
+                <ul>
+                    <li><strong>Dynamic Policy Rules:</strong> Configurable rules based on designation, department, and location</li>
+                    <li><strong>Exception Handling:</strong> Ability to request policy exceptions with additional approvals</li>
+                    <li><strong>Policy Versioning:</strong> Track policy changes and apply appropriate versions to requests</li>
+                    <li><strong>Automated Calculations:</strong> Auto-calculate per diem rates, mileage allowances</li>
+                    <li><strong>Compliance Checking:</strong> Real-time validation against multiple policy criteria</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-04: Sophisticated Approval Workflows</h4>
+                <ul>
+                    <li><strong>Configurable Workflow:</strong> Multi-level approvals based on amount thresholds</li>
+                    <li><strong>Parallel Approvals:</strong> Support for concurrent approvals from multiple departments</li>
+                    <li><strong>Delegate Authority:</strong> Temporary delegation of approval rights</li>
+                    <li><strong>Escalation Rules:</strong> Automatic escalation for overdue approvals</li>
+                    <li><strong>Conditional Routing:</strong> Smart routing based on request attributes</li>
+                    <li><strong>Bulk Operations:</strong> Approve/reject multiple requests simultaneously</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-05: Comprehensive Notification System</h4>
+                <ul>
+                    <li><strong>Multi-Channel Notifications:</strong> Email, SMS, Push notifications, and in-app alerts</li>
+                    <li><strong>Customizable Templates:</strong> Personalized notification content</li>
+                    <li><strong>Notification Preferences:</strong> User-configurable notification settings</li>
+                    <li><strong>Reminder System:</strong> Automatic reminders for pending actions</li>
+                    <li><strong>Escalation Notifications:</strong> Alerts for overdue approvals</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-06: Advanced Payment Processing</h4>
+                <ul>
+                    <li><strong>Multiple Payment Methods:</strong> Bank transfer, payroll integration, prepaid cards</li>
+                    <li><strong>Payment Scheduling:</strong> Scheduled payments and recurring reimbursements</li>
+                    <li><strong>Tax Handling:</strong> Automatic tax calculations and reporting</li>
+                    <li><strong>Currency Exchange:</strong> Real-time exchange rates for international payments</li>
+                    <li><strong>Payment Tracking:</strong> Real-time status updates and payment confirmations</li>
+                    <li><strong>Reconciliation:</strong> Automatic matching with bank statements</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-07: Advanced Reporting and Analytics</h4>
+                <ul>
+                    <li><strong>Interactive Dashboards:</strong> Real-time visualization of travel expenses and trends</li>
+                    <li><strong>Custom Reports:</strong> User-defined report parameters and filters</li>
+                    <li><strong>Scheduled Reports:</strong> Automated report generation and distribution</li>
+                    <li><strong>Comparative Analysis:</strong> Year-over-year and department comparisons</li>
+                    <li><strong>Cost Center Analytics:</strong> Detailed cost allocation and budget tracking</li>
+                    <li><strong>Predictive Analytics:</strong> Travel pattern analysis and budget forecasting</li>
+                    <li><strong>Export Capabilities:</strong> Multiple formats (PDF, Excel, CSV, XML)</li>
+                </ul>
+            </div>
+
+            <div class="requirement">
+                <h4>FR-08: Comprehensive Audit and Compliance</h4>
+                <ul>
+                    <li><strong>Complete Audit Trail:</strong> Immutable logs of all system activities</li>
+                    <li><strong>Compliance Reporting:</strong> Regulatory compliance and internal audit reports</li>
+                    <li><strong>Data Retention:</strong> Configurable data archiving and retention policies</li>
+                    <li><strong>Access Logging:</strong> Detailed user access and activity logs</li>
+                    <li><strong>Change Tracking:</strong> Version control for all data modifications</li>
+                    <li><strong>Fraud Detection:</strong> Automated detection of suspicious activities</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="architecture" class="section">
+            <h2><i class="fas fa-layer-group"></i> Technical Architecture Overview</h2>
+
+            <div class="highlight">
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li><strong>Frontend:</strong> React.js/Angular with TypeScript</li>
+                    <li><strong>Backend:</strong> Spring Boot (Java) or Node.js with Express</li>
+                    <li><strong>Database:</strong> PostgreSQL for transactional data, MongoDB for analytics</li>
+                    <li><strong>Caching:</strong> Redis for session management and data caching</li>
+                    <li><strong>Message Queue:</strong> Apache Kafka or RabbitMQ</li>
+                    <li><strong>API Gateway:</strong> Netflix Zuul or AWS API Gateway</li>
+                    <li><strong>Monitoring:</strong> ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+                    <li><strong>Container:</strong> Docker with Kubernetes orchestration</li>
+                    <li><strong>CI/CD:</strong> Jenkins or GitLab CI/CD</li>
+                </ul>
+            </div>
+
+            <div class="highlight">
+                <h3>Integration Points</h3>
+                <ul>
+                    <li><strong>Active Directory:</strong> LDAP integration for user authentication</li>
+                    <li><strong>Payroll System:</strong> REST API for salary integration</li>
+                    <li><strong>Email Service:</strong> SMTP/SendGrid for notifications</li>
+                    <li><strong>Banking APIs:</strong> Payment gateway integration</li>
+                    <li><strong>Document Storage:</strong> AWS S3 or Azure Blob Storage</li>
+                    <li><strong>Currency Exchange:</strong> Third-party APIs for real-time rates</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <button class="toggle-button" onclick="toggleContent('implementationPhases')">
+                <i class="fas fa-chevron-down"></i> View Implementation Phases
+            </button>
+            <div id="implementationPhases" class="toggle-content">
+                <h2><i class="fas fa-project-diagram"></i> Implementation Phases</h2>
+
+                <div class="requirement">
+                    <h4>Phase 1: Core System (Months 1-3)</h4>
+                    <ul>
+                        <li>Basic user authentication and role management</li>
+                        <li>Travel request creation and submission</li>
+                        <li>Simple approval workflow (2-level)</li>
+                        <li>Basic policy validation</li>
+                        <li>Email notifications</li>
+                    </ul>
+                </div>
+
+                <div class="requirement">
+                    <h4>Phase 2: Enhanced Features (Months 4-6)</h4>
+                    <ul>
+                        <li>Advanced approval workflows</li>
+                        <li>Payment processing integration</li>
+                        <li>Document management</li>
+                        <li>Basic reporting capabilities</li>
+                        <li>Mobile application</li>
+                    </ul>
+                </div>
+
+                <div class="requirement">
+                    <h4>Phase 3: Advanced Analytics (Months 7-9)</h4>
+                    <ul>
+                        <li>Advanced reporting and dashboards</li>
+                        <li>Audit and compliance features</li>
+                        <li>Multi-currency support</li>
+                        <li>API for third-party integrations</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+
+                <div class="requirement">
+                    <h4>Phase 4: AI/ML Integration (Months 10-12)</h4>
+                    <ul>
+                        <li>Predictive analytics for travel patterns</li>
+                        <li>Intelligent expense categorization</li>
+                        <li>Fraud detection algorithms</li>
+                        <li>Chatbot for user assistance</li>
+                        <li>Advanced automation features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-chart-line"></i> Success Metrics</h2>
+            
+            <div class="highlight">
+                <h3>Key Performance Indicators (KPIs)</h3>
+                <ul>
+                    <li><strong>Process Efficiency:</strong> 70% reduction in request processing time</li>
+                    <li><strong>User Adoption:</strong> 95% employee participation within 6 months</li>
+                    <li><strong>Cost Reduction:</strong> 30% reduction in administrative costs</li>
+                    <li><strong>Accuracy:</strong> 99% accuracy in policy compliance checks</li>
+                    <li><strong>User Satisfaction:</strong> 4.5+ rating on user experience surveys</li>
+                    <li><strong>System Performance:</strong> 99.9% uptime and <2s response time</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#3498db',
+                primaryTextColor: '#2c3e50',
+                primaryBorderColor: '#2980b9',
+                lineColor: '#34495e',
+                secondaryColor: '#ecf0f1',
+                tertiaryColor: '#f8f9fa',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f8f9fa',
+                tertiaryBkg: '#ecf0f1'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            sequence: {
+                useMaxWidth: true,
+                showSequenceNumbers: true
+            },
+            gantt: {
+                useMaxWidth: true,
+                leftPadding: 150
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-menu a, .back-to-top').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Progress bar
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Back to top button visibility
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const contentSections = document.querySelectorAll('.section');
+            
+            contentSections.forEach(section => {
+                const sectionText = section.textContent.toLowerCase();
+                if (sectionText.includes(searchTerm)) {
+                    section.style.display = 'block';
+                    // Highlight matching text (simplified approach)
+                    section.innerHTML = section.innerHTML.replace(
+                        new RegExp(searchTerm, 'gi'),
+                        match => `<span style="background-color: yellow;">${match}</span>`
+                    );
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Diagram controls
+        function zoomDiagram(button, factor) {
+            const diagram = button.closest('.diagram-container').querySelector('.mermaid');
+            const currentScale = diagram.style.transform ? parseFloat(diagram.style.transform.match(/scale\(([^)]+)\)/)[1]) : 1;
+            const newScale = factor === 'reset' ? 1 : currentScale * factor;
+            
+            diagram.style.transform = `scale(${newScale})`;
+            diagram.style.transformOrigin = 'top left';
+        }
+
+        function copyDiagramCode(button) {
+            const diagramCode = button.closest('.diagram-container').querySelector('.mermaid').textContent;
+            navigator.clipboard.writeText(diagramCode).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        // Toggle content visibility
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = content.previousElementSibling;
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                button.innerHTML = '<i class="fas fa-chevron-down"></i> View Implementation Phases';
+            } else {
+                content.style.display = 'block';
+                button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Implementation Phases';
+            }
+        }
+
+        // Add loading animation for diagrams
+        function showDiagramLoading() {
+            const diagrams = document.querySelectorAll('.mermaid');
+            diagrams.forEach(diagram => {
+                diagram.style.minHeight = '300px';
+                diagram.style.display = 'flex';
+                diagram.style.alignItems = 'center';
+                diagram.style.justifyContent = 'center';
+                diagram.style.background = 'linear-gradient(45deg, #f8f9fa, #e9ecef)';
+                diagram.style.borderRadius = '10px';
+            });
+        }
+
+        // Initialize loading animation
+        showDiagramLoading();
+    </script>
+</body>
+</html>

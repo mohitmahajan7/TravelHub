@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating FSD with Mermaid - TTMS Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.06) 0%, transparent 50%),
+                #ffffff;
+            color: #1a1a2e;
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 40px;
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(102, 126, 234, 0.1);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 24px;
+            z-index: -1;
+        }
+        
+        .slide:hover {
+            transform: translateY(-10px);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                0 0 80px rgba(102, 126, 234, 0.2);
+        }
+        
+        .slide h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 40px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .slide h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .slide h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea 0%, #f093fb 100%);
+            border-radius: 2px;
+        }
+        
+        .slide h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefits-list li {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+            padding: 20px 25px;
+            border-radius: 16px;
+            border-left: 4px solid;
+            border-left-color: #667eea;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefits-list li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .benefits-list li:hover {
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+            border-left-color: #f093fb;
+        }
+        
+        .benefits-list li:hover::before {
+            left: 100%;
+        }
+        
+        .diagram-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .diagram-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            animation: rotate 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .diagram-card:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .diagram-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.2);
+        }
+        
+        .diagram-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .diagram-card p {
+            color: #556983;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1em;
+            position: relative;
+        }
+        
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.01);
+        }
+        
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .process-step {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px 25px;
+            border-radius: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+        
+        .process-step:hover::before {
+            opacity: 1;
+        }
+        
+        .process-step .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .arrow {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea 0%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            animation: gradientFlow 6s ease-in-out infinite;
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 
+                0 20px 40px rgba(102, 126, 234, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 25px 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea 0%, #f093fb 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .tech-item:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .navigation {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .nav-button {
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            margin: 3px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #556983;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            margin-top: 40px;
+        }
+        
+        /* Floating particles animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #f093fb);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
+            }
+            
+            .slide {
+                padding: 30px 25px;
+                min-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- <div class="navigation">
+        <button class="nav-button" onclick="scrollToSlide(1)">1</button>
+        <button class="nav-button" onclick="scrollToSlide(2)">2</button>
+        <button class="nav-button" onclick="scrollToSlide(3)">3</button>
+        <button class="nav-button" onclick="scrollToSlide(4)">4</button>
+        <button class="nav-button" onclick="scrollToSlide(5)">5</button>
+        <button class="nav-button" onclick="scrollToSlide(6)">6</button>
+    </div> -->
+
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide" id="slide1">
+            <h1>Creating Functional Specification Document using Mermaid</h1>
+            <div style="text-align: center; margin-top: 50px;">
+                <h3 style="color: #556983; margin-bottom: 30px; font-size: 1.4em;">Travel Ticket Management System (TTMS)</h3>
+                <div class="highlight-box">
+                    <h3 style="font-size: 1.6em; margin-bottom: 20px;">✨ Transforming Complex Business Requirements into Stunning Visual Documentation ✨</h3>
+                    <p style="margin-top: 20px; font-size: 1.1em; opacity: 0.9;">Leveraging Mermaid.js for next-generation system design and workflow visualization</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Project Overview -->
+        <div class="slide" id="slide2">
+            <h2>🚀 Travel Ticket Management System - TTMS</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>What Makes TTMS Special?</h3>
+                    <ul class="benefits-list">
+                        <li><strong>🎯 Smart Travel Management</strong> - Efficient approach to corporate travel workflows</li>
+                        <li><strong>🏗️ Intelligent Role System</strong> - Dynamic multi-level approval hierarchy</li>
+                        <li><strong>🌐 Complete Ecosystem</strong> - Travel, Food, Commute, Stay unified platform</li>
+                        <li><strong>🔍 Audit Excellence</strong> - Enterprise-grade traceability and compliance</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="tech-stack">
+                        <div class="tech-item">🌐 Web Portal</div>
+                        <div class="tech-item">⚡ Workflow Engine</div>
+                        <div class="tech-item">📋 Policy Compliance</div>
+                        <div class="tech-item">📊 Audit Logging</div>
+                        <div class="tech-item">🔔 Smart Notifications</div>
+                        <div class="tech-item">📈 Advanced Reporting</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: FSD Creation Process -->
+        <div class="slide" id="slide3">
+            <h2>🚀 Revolutionary Functional Specification Document Creation Process</h2>
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>🧠 Deep Dive Analysis</h4>
+                    <p>Comprehensive business requirements gathering and workflow identification</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>🎯 Strategic Mapping</h4>
+                    <p>Intelligent mapping of requirements to optimal Mermaid diagram types</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>✨ Efficient & Effective Solution</h4>
+                    <p>Drafted the Document along with Requirement Gathering in appx 8 Man hours.</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>🔗 Seamless Integration</h4>
+                    <p>Perfect embedding into comprehensive, cohesive FSD document</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <h3>Achievements:</h3>
+                <ul class="benefits-list">
+                    <li><strong>👥 6 User Roles Mastered</strong> - From Employee to Super Admin, every persona covered</li>
+                    <li><strong>🔄 7-State Workflow Perfection</strong> - Hierarchical approval workflows with surgical precision</li>
+                    <li><strong>📊 7-Entity Data Model</strong> - Comprehensive database design with crystal-clear relationships</li>
+                    <li><strong>🏗️ 5-Layer Architecture</strong> - Enterprise-grade system architecture documentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Benefits & Results -->
+        <div class="slide" id="slide4">
+            <h2>🏆 Game-Changing Benefits Achieved</h2>
+            <div class="content-grid">
+                <div>
+                    <h3>📚 Documentation Revolution</h3>
+                    <ul class="benefits-list">
+                        <li><strong>🎯 Crystal Clear Communication</strong> - Visual representations eliminate all ambiguity</li>
+                        <li><strong>⚡ Lightning-Fast Reviews</strong> - Stakeholders instantly grasp complex workflows</li>
+                        <li><strong>🔄 Living Documentation</strong> - Diagrams evolve seamlessly with requirements</li>
+                        <li><strong>🎨 Visual Consistency</strong> - Standardized design language across all diagrams</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>💻 Development Game-Changer</h3>
+                    <ul class="benefits-list">
+                        <li><strong>🚀 50% Faster Development</strong> - Clear specs minimize confusion and rework</li>
+                        <li><strong>🧪 Superior Testing</strong> - Visual workflows guide comprehensive test strategies</li>
+                        <li><strong>🔧 Effortless Maintenance</strong> - Living diagrams serve as perpetual reference</li>
+                        <li><strong>🤝 Perfect Alignment</strong> - Universal understanding across all stakeholders</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Why Mermaid for FSD? -->
+        <div class="slide" id="slide5">
+            <h2>💎 Why Mermaid.js Revolutionized our FSD Creation</h2>
+            <div class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>😴 Traditional Documentation</th>
+                        <th>✨ Mermaid-Powered FSD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Static, lifeless text descriptions</td>
+                        <td>Dynamic, interactive visual diagrams</td>
+                    </tr>
+                    <tr>
+                        <td>Nightmare to maintain and update</td>
+                        <td>Code-based, git-friendly, version controlled</td>
+                    </tr>
+                    <tr>
+                        <td>Complex workflows lost in translation</td>
+                        <td>Crystal-clear flowcharts and state diagrams</td>
+                    </tr>
+                    <tr>
+                        <td>Hours wasted on manual updates</td>
+                        <td>Lightning-fast modifications through code</td>
+                    </tr>
+                    <tr>
+                        <td>Stakeholders glazing over documents</td>
+                        <td>Engaging, interactive visuals that captivate</td>
+                    </tr>
+                    <tr>
+                        <td>Siloed documentation approach</td>
+                        <td>Integrated, cohesive visual storytelling</td>
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+
+        <!-- Slide 6: Mermaid Diagram Arsenal & Final Results -->
+        <div class="slide" id="slide6">
+            <h2>🎨 Mermaid Diagram Arsenal</h2>
+            <div class="diagram-showcase">
+                <div class="diagram-card">
+                    <h4>🏗️ System Architecture</h4>
+                    <p>Multi-layered architecture with presentation, business logic, and data layers - beautifully visualized</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>🔄 State Diagrams</h4>
+                    <p>Complete ticket lifecycle from Draft to Archived with seamless state transitions</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>📊 Dynamic Flowcharts</h4>
+                    <p>Complex approval workflows and business processes made crystal clear</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>🔗 ER Diagrams</h4>
+                    <p>Database relationships and entity structures with perfect clarity</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>📈 Sequence Diagrams</h4>
+                    <p>System interactions and communication flows in perfect harmony</p>
+                </div>
+                <div class="diagram-card">
+                    <h4>🏛️ Organizational Charts</h4>
+                    <p>Hierarchical structures and reporting relationships visualized elegantly</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 50px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 20px;">🎉 EPIC FINAL RESULT</h3>
+                <p style="font-size: 1.2em; font-weight: 600;">26-Page Masterpiece FSD with 8+ Stunning Mermaid Diagrams</p>
+                <p style="margin-top: 15px; opacity: 0.9;">Complete system architecture, workflows, data models, and user interactions - all visually spectacular!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>✨ Travel Ticket Management System (TTMS) - FSD v1.3 | Powered by Mermaid.js Magic ✨</p>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particles.appendChild(particle);
+            }
+        }
+        
+       
