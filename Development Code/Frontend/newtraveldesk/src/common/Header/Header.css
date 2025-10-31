@@ -1,0 +1,270 @@
+/* Header.css - Updated for Travel Desk with Logout Power Button */
+
+.header {
+  background: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #e9ecef;
+  margin-left: 280px; /* Added to account for sidebar width */
+  
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobileMenuBtn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobileMenuBtn:hover {
+  background: #f5f7fa;
+  transform: scale(1.1);
+}
+
+.modernTitle {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.accentWord {
+  background: linear-gradient(135deg, #1a4f8c 0%, #3a7bb8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Notification Button */
+.notificationBtn {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.notificationBtn:hover {
+  background: #f5f7fa;
+  color: #2c3e50;
+  transform: scale(1.1);
+}
+
+.notificationBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: #dc3545;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* User Profile */
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.userProfile:hover {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.userProfile img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.userProfile:hover img {
+  border-color: #1a4f8c;
+  transform: scale(1.05);
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.userName {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.userId {
+  color: #6c757d;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Logout Power Button */
+.logoutPowerBtn {
+  background: none;
+  border: 2px solid #ffebee;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-left: 10px;
+}
+
+.logoutPowerBtn:hover:not(:disabled) {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.logoutPowerBtn:active {
+  transform: scale(0.95);
+}
+
+.logoutPowerBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+    margin-left: 0; /* Reset margin on mobile */
+    width: 100%; /* Full width on mobile */
+  }
+  
+  .mobileMenuBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modernTitle {
+    font-size: 1.5rem;
+  }
+  
+  .userInfo {
+    gap: 15px;
+  }
+  
+  .userDetails {
+    display: none;
+  }
+  
+  .userProfile {
+    padding: 6px;
+    gap: 0;
+  }
+  
+  .userProfile img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .notificationBtn,
+  .logoutPowerBtn {
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 15px;
+  }
+  
+  .modernTitle {
+    font-size: 1.3rem;
+  }
+  
+  .userInfo {
+    gap: 10px;
+  }
+  
+  .notificationBtn,
+  .logoutPowerBtn {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+  }
+  
+  .userProfile img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Ensure Font Awesome icons are properly aligned */
+.logoutPowerBtn i,
+.notificationBtn i,
+.mobileMenuBtn i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
