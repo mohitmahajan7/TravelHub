@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  background-image: url('../src/assets/back3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* --- Company Info Section --- */
+.company-info {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: 40px; */
+  /* border: 1px solid #000; */
+}
+
+.company-content {
+  color: white;
+  text-align: center;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.company-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.company-content .tagline {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #e3f2fd;
+}
+
+.company-content .description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #bbdefb;
+  margin-bottom: 30px;
+
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.feature-icon {
+  color: #64b5f6;
+}
+
+/* --- Login Card --- */
+.login-card {
+  background: #ffffff;
+  padding: 50px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 32%;
+  margin: auto;
+  transform: translateX(-5%);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-icon img {
+  width: 50px;
+  height: auto;
+}
+
+.logo-text h1 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.logo-text p {
+  color: #6c757d;
+  margin: 2px 0 0 0;
+  font-size: 0.85rem;
+}
+
+/* --- Form Styles --- */
+.login-form {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+/* --- Form Options --- */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* --- Login Button --- */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #5a6fd8;
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Footer --- */
+.login-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.login-footer p {
+  margin: 0 0 10px 0;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.login-footer a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.security-note {
+  font-size: 0.8rem;
+  color: #28a745;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1200px) {
+  .login-card {
+    width: 40%;
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .company-info {
+    width: 45%;
+  }
+  .login-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-info {
+    display: none;
+  }
+  
+  .login-container {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .login-card {
+    width: 90%;
+    max-width: 400px;
+    padding: 40px 30px;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+    width: 95%;
+  }
+  
+  .logo {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
