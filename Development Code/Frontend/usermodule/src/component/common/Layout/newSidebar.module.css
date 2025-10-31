@@ -1,0 +1,113 @@
+/* Sidebar Header Styles */
+.sidebarHeader {
+  padding: 20px 15px;
+  background: linear-gradient(135deg, #1a4f8c 0%, #2c3e50 100%);
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+}
+
+.sidebarHeader::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+}
+
+.brandContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.logoWrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoWrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logoWrapper img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.companyName {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appName {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  line-height: 1.3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebarHeader {
+    padding: 15px 12px;
+    min-height: 80px;
+  }
+  
+  .logoWrapper {
+    padding: 8px;
+  }
+  
+  .logoWrapper img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .companyName {
+    font-size: 1.1rem;
+  }
+  
+  .appName {
+    font-size: 0.75rem;
+  }
+  
+  .brandContainer {
+    gap: 12px;
+  }
+}
