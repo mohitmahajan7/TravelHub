@@ -1,0 +1,135 @@
+.policy-exceptions {
+  padding: 20px;
+  margin-left: 280px; /* Match sidebar width (280px from sidebar CSS) */
+  margin-top: 0; /* Remove top margin since header is sticky */
+  min-height: calc(100vh - 0px);
+  background: #f5f7fa;
+}
+
+.section-title {
+  color: #1a4f8c;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.exceptions-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 15px 20px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-header h3 {
+  color: #1a4f8c;
+  margin: 0;
+  font-weight: 600;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th {
+  background: #f8f9fa;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #343a40;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.data-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.data-table tr:hover {
+  background: #f8f9fa;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: #f8f9fa;
+  color: #343a40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.icon-btn:hover {
+  background: #1a4f8c;
+  color: white;
+}
+
+.icon-btn.success-btn {
+  background: #28a745;
+  color: white;
+}
+
+.icon-btn.success-btn:hover {
+  background: #218838;
+}
+
+.icon-btn.danger-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.icon-btn.danger-btn:hover {
+  background: #c82333;
+}
+
+.policy-issue {
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for sidebar */
+@media (max-width: 992px) {
+  .policy-exceptions {
+    margin-left: 80px; /* Match collapsed sidebar width (80px from sidebar CSS) */
+  }
+}
+
+@media (max-width: 768px) {
+  .policy-exceptions {
+    margin-left: 0;
+    padding: 15px;
+    margin-top: 0; /* Remove top margin for mobile */
+  }
+  
+  .table-container {
+    margin: 0 -15px;
+  }
+  
+  .data-table {
+    min-width: 800px; /* Allow horizontal scroll on mobile */
+  }
+  
+  .policy-issue {
+    max-width: 200px;
+  }
+}
