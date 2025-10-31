@@ -1,0 +1,142 @@
+.badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+  text-align: center;
+  min-width: 80px;
+  transition: all 0.2s ease;
+}
+
+/* Size Variants */
+.small {
+  padding: 2px 8px;
+  font-size: 0.7em;
+  min-width: 60px;
+}
+
+.medium {
+  padding: 4px 12px;
+  font-size: 0.75em;
+  min-width: 80px;
+}
+
+.large {
+  padding: 6px 16px;
+  font-size: 0.8em;
+  min-width: 100px;
+}
+
+/* Status Variants */
+.pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.approved {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.rejected {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f1b0b7;
+}
+
+.booked {
+  background: #cce7ff;
+  color: #004085;
+  border: 1px solid #b3d7ff;
+}
+
+.completed {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.draft {
+  background: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d6d8db;
+}
+
+.active {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.inactive {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #e9ecef;
+}
+
+.suspended {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Outline Variants */
+.outline {
+  background: transparent !important;
+}
+
+.outline.pending {
+  color: #856404;
+  border: 1px solid #856404;
+}
+
+.outline.approved {
+  color: #155724;
+  border: 1px solid #155724;
+}
+
+.outline.rejected {
+  color: #721c24;
+  border: 1px solid #721c24;
+}
+
+.outline.booked {
+  color: #004085;
+  border: 1px solid #004085;
+}
+
+.outline.completed {
+  color: #0c5460;
+  border: 1px solid #0c5460;
+}
+
+.outline.draft {
+  color: #383d41;
+  border: 1px solid #383d41;
+}
+
+/* Hover Effects */
+.badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .badge {
+    font-size: 0.7em;
+    min-width: 70px;
+  }
+  
+  .small {
+    min-width: 50px;
+  }
+  
+  .large {
+    min-width: 90px;
+  }
+}
